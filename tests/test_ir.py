@@ -23,20 +23,25 @@ def selecionar_rendimento(driver_visivel, valor_rendimento):
     botao_rendimentos = driver_visivel.find_element(By.ID, "mat-input-0")
     botao_rendimentos.send_keys(valor_rendimento)
 
+# def scroll_to_element(driver_visivel, element):
+#     driver_visivel.execute_script("arguments[0].scrollIntoView();", element)
+
 def test_ir_isento(driver_visivel):
     # Arrange
     aliquota_esperada = "0,00"
     parcela_a_deduzir_esperada = "0,00"
-    valor = 190397
+    valor = "190397"
 
     selecionar_ano(driver_visivel)
 
     # Act
+    time.sleep(3)
     selecionar_rendimento(driver_visivel, valor)
 
     # Assert
+    time.sleep(3)
     aliquota_obtida = driver_visivel.find_element(By.CLASS_NAME, "card-result-input")
-    parcela_a_deduzir_obtida = driver_visivel.find_element(By.CLASS_NAME, "card-subtitle-input card-result-input bold")
+    parcela_a_deduzir_obtida = driver_visivel.find_element(By.TAG_NAME, "card-subtitle-input.card-result-input")
 
     assert aliquota_obtida.text == aliquota_esperada
     assert parcela_a_deduzir_obtida.text == parcela_a_deduzir_esperada
